@@ -9,9 +9,7 @@ function onRequest(request, response){
   response.end(); 
 }
 
-http.createServer(onRequest).listen(8888, () => {
-  console.log('Server running at http://127.0.0.1:8888/');
-});
+http.createServer(onRequest).listen(8888); 
 /**
  * 서버는 들을 수 있다
  * 서버가 들을 수 있는 주파수가 8888 (어떤 클라이언트의 이야기를 들을지)
