@@ -1,28 +1,18 @@
-let http = require('http'); 
+const http = require('http'); 
+const url = require('url'); 
 // Node.js 의 모듈 (기능을 할 줄 아는 부품) 중 하나인 http
 // 이를 부르는 게 require 이라는 함수
 // http 모듈을 http 변수 상자에 넣어두고 쓰자
-let url = require('url'); // url 모듈을 변수에 담음 
 
-
-function start(){
-
+function start(route, handle){
   function onRequest(request, response){
-    let pathname = url.parse(request.url).pathname;
+    let pathname = new URL(request.url, `http://${request.headers.host}`).pathname;
     console.log('pathname : ' + pathname); 
-
-
-    response.writeHead(200, {'Content-Type' : 'text/html'}); 
-    response.write('Hello, Node.js');
-    response.end(); 
+    route(pathname, handle, response); // route 에게 pathname 을 넣어준다. 
   }
   
   http.createServer(onRequest).listen(8888); 
-  /**
-   * 서버는 들을 수 있다
-   * 서버가 들을 수 있는 주파수가 8888 (어떤 클라이언트의 이야기를 들을지)
-   */
-
+  console.log("Server has started and is listening on port 8888.");
 }
 
-exports.start = start; 
+exports.start = start;
