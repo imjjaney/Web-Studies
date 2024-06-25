@@ -1,12 +1,17 @@
 let http = require('http'); 
 // Node.js 의 모듈 (기능을 할 줄 아는 부품) 중 하나인 http
 // 이를 부르는 게 require 이라는 함수
-// http 모듈을 http 변수 상자에 넣어두고 쓰자.
+// http 모듈을 http 변수 상자에 넣어두고 쓰자
+let url = require('url'); // url 모듈을 변수에 담음 
 
 
 function start(){
 
   function onRequest(request, response){
+    let pathname = url.parse(request.url).pathname;
+    console.log('pathname : ' + pathname); 
+
+
     response.writeHead(200, {'Content-Type' : 'text/html'}); 
     response.write('Hello, Node.js');
     response.end(); 
